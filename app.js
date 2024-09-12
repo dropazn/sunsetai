@@ -6,7 +6,6 @@ async function fetchWeatherDataByLocation(lat, lon) {
     const response = await fetch(url);
     const data = await response.json();
     
-    // Get the cloud cover and sunset time from the response
     const cloudCover = data.clouds.all;
     const sunsetUnix = data.sys.sunset;
     
@@ -19,7 +18,6 @@ async function fetchWeatherDataByCity(city) {
     const response = await fetch(url);
     const data = await response.json();
     
-    // Get the cloud cover and sunset time from the response
     const cloudCover = data.clouds.all;
     const sunsetUnix = data.sys.sunset;
     
