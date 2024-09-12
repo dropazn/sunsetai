@@ -9,18 +9,19 @@
 <body>
     <div class="container">
         <h1>Sunset Predictor</h1>
+        
+        <!-- Input for city-based sunset prediction -->
+        <div class="city-input">
+            <input type="text" id="city-name" placeholder="Enter city name">
+            <button onclick="getCitySunsetPrediction()">Get Sunset Data</button>
+        </div>
+
         <!-- Section for local sunset prediction -->
         <p id="location-status">Fetching local sunset data...</p>
         <div class="sunset-info">
             <p id="sunset-time">Sunset Time: Loading...</p>
             <p id="sunset-description">Description: Loading...</p>
             <p id="sunset-rating">Rating: Loading...</p>
-        </div>
-        
-        <!-- Input for city-based sunset prediction -->
-        <div class="city-input">
-            <input type="text" id="city-name" placeholder="Enter city name">
-            <button onclick="getCitySunsetPrediction()">Get Sunset Data</button>
         </div>
 
         <!-- Section for sunset prediction based on city search -->
@@ -30,3 +31,8 @@
             <p id="city-sunset-description">Description: </p>
             <p id="city-sunset-rating">Rating: </p>
         </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
