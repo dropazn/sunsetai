@@ -27,8 +27,25 @@ h1 {
 
 #location-name, #location-status, #sunset-time, #sunset-description, #sunset-rating {
     font-size: 1.2em;
-    color: #fff;
+    color: #fff; /* Default color for vibrant backgrounds */
     margin: 10px 0;
+}
+
+/* Contrasting text colors for grey and darker backgrounds */
+body.background-grey #location-name,
+body.background-grey #location-status,
+body.background-grey #sunset-time,
+body.background-grey #sunset-description,
+body.background-grey #sunset-rating {
+    color: #000; /* Dark text for grey backgrounds */
+}
+
+body.background-dark #location-name,
+body.background-dark #location-status,
+body.background-dark #sunset-time,
+body.background-dark #sunset-description,
+body.background-dark #sunset-rating {
+    color: #f0f0f0; /* Lighter text for dark backgrounds */
 }
 
 /* Center all the text vertically and horizontally */
@@ -44,9 +61,4 @@ h1 {
 /* Smooth text appearance */
 p {
     transition: opacity 1s ease;
-}
-
-/* Hide elements initially */
-.hidden {
-    display: none;
 }
