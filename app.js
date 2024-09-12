@@ -1,6 +1,6 @@
-const apiKey = 'YOUR_API_KEY';
-const lat = 'YOUR_LATITUDE';
-const lon = 'YOUR_LONGITUDE';
+const apiKey = '49ab51a72b12ec9a691f33aad66addcf'; // Your OpenWeatherMap API key
+const lat = 'YOUR_LATITUDE'; // Replace with your latitude
+const lon = 'YOUR_LONGITUDE'; // Replace with your longitude
 const oneCallUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`;
 
 async function fetchSunsetData() {
@@ -8,7 +8,7 @@ async function fetchSunsetData() {
         const response = await fetch(oneCallUrl);
         const data = await response.json();
 
-        const locationName = 'Your Location'; // You can add a geocoding API to get the location name from lat/lon
+        const locationName = 'Your Location'; // Optionally replace with actual location name
         const sunsetTime = new Date(data.current.sunset * 1000).toLocaleTimeString();
         const cloudsLow = data.current.clouds_low;
         const cloudsMid = data.current.clouds_mid;
