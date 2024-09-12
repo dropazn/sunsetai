@@ -39,12 +39,28 @@ function calculateSunsetRating(cloudCover) {
     return rating;
 }
 
+// Function to change the background based on sunset rating
+function changeBackground(rating) {
+    const body = document.body;
+
+    if (rating === 10) {
+        body.style.background = 'linear-gradient(to top, #ff416c, #ff4b2b, #ff7e5f)'; // Vibrant pink and orange for 10/10
+    } else if (rating === 8) {
+        body.style.background = 'linear-gradient(to top, #ff7e5f, #feb47b, #ff9966)'; // Bright orange and pink for 8/10
+    } else if (rating === 6) {
+        body.style.background = 'linear-gradient(to top, #f0e68c, #ffcc99, #ffdab9)'; // Pale yellow and light orange for 6/10
+    } else if (rating === 3) {
+        body.style.background = 'linear-gradient(to top, #ddd, #ccc, #ffa07a)'; // Greyish tones with little orange for 3/10
+    }
+}
+
 // Function to update the UI with sunset prediction and location
 function updateUI(sunsetTime, description, rating, locationName) {
     document.getElementById('sunset-time').innerText = `Sunset Time: ${sunsetTime}`;
     document.getElementById('sunset-description').innerText = `Description: ${description}`;
     document.getElementById('sunset-rating').innerText = `Rating: ${rating}/10`;
     document.getElementById('location-name').innerText = `Location: ${locationName}`;
+    changeBackground(rating);
 }
 
 // Function to handle local sunset prediction
@@ -55,7 +71,12 @@ function getSunsetPrediction() {
             const lon = position.coords.longitude;
 
             try {
+                // Initial message: "Fetching location..." changes to "Fetching sunset data for [location]"
+                document.getElementById('location-status').innerText = 'Fetching local sunset data...';
+
                 const { cloudCover, sunsetUnix, locationName } = await fetchWeatherDataByLocation(lat, lon);
+                document.getElementById('location-status').innerText = `Fetching sunset data for ${locationName}...`;
+
                 const sunsetDate = new Date(sunsetUnix * 1000); // Convert from UNIX timestamp
                 const sunsetTime = sunsetDate.toLocaleTimeString();
 
