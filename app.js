@@ -13,8 +13,9 @@ async function fetchWeatherDataByLocation(lat, lon) {
         console.log('Local Weather Data:', data); // Log to see if API returns data
         const cloudCover = data.clouds.all;
         const sunsetUnix = data.sys.sunset;
+        const locationName = `${data.name}, ${data.sys.country}`; // Get location name and country
         
-        return { cloudCover, sunsetUnix };
+        return { cloudCover, sunsetUnix, locationName };
     } catch (error) {
         console.error('Error fetching local weather data:', error);
         throw error;
@@ -38,11 +39,12 @@ function calculateSunsetRating(cloudCover) {
     return rating;
 }
 
-// Function to update the UI with sunset prediction
-function updateUI(sunsetTime, description, rating) {
+// Function to update the UI with sunset prediction and location
+function updateUI(sunsetTime, description, rating, locationName) {
     document.getElementById('sunset-time').innerText = `Sunset Time: ${sunsetTime}`;
     document.getElementById('sunset-description').innerText = `Description: ${description}`;
     document.getElementById('sunset-rating').innerText = `Rating: ${rating}/10`;
+    document.getElementById('location-name').innerText = `Location: ${locationName}`;
 }
 
 // Function to handle local sunset prediction
@@ -53,7 +55,7 @@ function getSunsetPrediction() {
             const lon = position.coords.longitude;
 
             try {
-                const { cloudCover, sunsetUnix } = await fetchWeatherDataByLocation(lat, lon);
+                const { cloudCover, sunsetUnix, locationName } = await fetchWeatherDataByLocation(lat, lon);
                 const sunsetDate = new Date(sunsetUnix * 1000); // Convert from UNIX timestamp
                 const sunsetTime = sunsetDate.toLocaleTimeString();
 
@@ -68,7 +70,7 @@ function getSunsetPrediction() {
                     description = 'Grey skies with low sunset quality.';
                 }
 
-                updateUI(sunsetTime, description, rating);
+                updateUI(sunsetTime, description, rating, locationName);
             } catch (error) {
                 console.error('Error in getSunsetPrediction:', error);
                 document.getElementById('location-status').innerText = 'Unable to fetch sunset data.';
