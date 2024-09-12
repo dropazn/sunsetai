@@ -1,61 +1,68 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background: linear-gradient(to top, #ff7e5f, #feb47b); /* Sunset gradient background */
     margin: 0;
     padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
 }
 
 .container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 h1 {
     font-size: 2.5em;
     color: #333;
+    margin-bottom: 20px;
 }
 
-.city-input {
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.city-input input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-    font-size: 1em;
-    width: 60%;
-}
-
-.city-input button {
-    padding: 10px 20px;
-    background-color: #feb47b;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-.city-input button:hover {
-    background-color: #ff7e5f;
-}
-
-.sunset-info, .city-sunset-info {
+.sunset-info {
     margin-top: 20px;
 }
 
-.sunset-info p, .city-sunset-info p {
+.sunset-info p {
     font-size: 1.2em;
     color: #555;
 }
 
-.city-sunset-info {
-    display: none; /* Hidden initially, shown after user search */
+/* Create the sunset scene */
+.sunset-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at bottom, rgba(255, 204, 128, 0.8) 30%, rgba(255, 87, 34, 0.6) 70%), url('https://www.example.com/clouds.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(4px);
+    z-index: -1;
+}
+
+.sun {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #ffeb3b, rgba(255, 193, 7, 0) 70%);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 80px rgba(255, 223, 186, 0.6);
+}
+
+.footer-text {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    color: #333;
+    z-index: 1;
 }
