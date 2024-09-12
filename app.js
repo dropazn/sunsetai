@@ -1,4 +1,4 @@
-const apiKey = '49ab51a72b12ec9a691f33aad66addcf'; // Your OpenWeatherMap API key
+const apiKey = 'aff269b3425503adb7ebe6801ea892de'; // Your OpenWeatherMap API key
 const lat = 'YOUR_LATITUDE'; // Replace with your latitude
 const lon = 'YOUR_LONGITUDE'; // Replace with your longitude
 const oneCallUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`;
