@@ -1,13 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
 .city-input {
     margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .city-input input {
     padding: 10px;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
     font-size: 1em;
+    width: 60%;
 }
 
 .city-input button {
@@ -24,7 +47,15 @@
     background-color: #ff7e5f;
 }
 
-.city-sunset-info {
+.sunset-info, .city-sunset-info {
     margin-top: 20px;
+}
+
+.sunset-info p, .city-sunset-info p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.city-sunset-info {
     display: none; /* Hidden initially, shown after user search */
 }
