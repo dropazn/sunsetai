@@ -1,4 +1,4 @@
-const apiKey = '49ab51a72b12ec9a691f33aad66addcf'; // Replace with your OpenWeatherMap API key
+const apiKey = '49ab51a72b12ec9a691f33aad66addcf'; // Your OpenWeatherMap API key
 
 // Function to fetch weather data from OpenWeatherMap API using latitude and longitude
 async function fetchWeatherDataByLocation(lat, lon) {
@@ -20,8 +20,9 @@ async function fetchWeatherDataByCity(city) {
     
     const cloudCover = data.clouds.all;
     const sunsetUnix = data.sys.sunset;
-    
-    return { cloudCover, sunsetUnix, cityName: data.name };
+    const cityName = data.name;
+
+    return { cloudCover, sunsetUnix, cityName };
 }
 
 // Function to calculate sunset rating based on cloud cover
