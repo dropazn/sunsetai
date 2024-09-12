@@ -1,64 +1,66 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
     margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to top, #ff7e5f, #feb47b); /* Default gradient */
-    transition: background 1s ease; /* Smooth transition for changing background */
+    font-family: Arial, sans-serif;
+    color: #fff;
+    text-align: center;
 }
 
 .container {
-    max-width: 600px;
     padding: 20px;
-    position: relative;
-    z-index: 1;
 }
 
 h1 {
-    font-size: 2.5em;
-    color: #fff;
     margin-bottom: 20px;
 }
 
-#location-name, #location-status, #sunset-time, #sunset-description, #sunset-rating {
-    font-size: 1.2em;
-    color: #fff; /* Default color for vibrant backgrounds */
+#location-name, #location-status, #sunset-time, #sunset-description, #sunset-rating, #cloud-coverage {
     margin: 10px 0;
 }
 
-/* Contrasting text colors for grey and darker backgrounds */
-body.background-grey #location-name,
-body.background-grey #location-status,
-body.background-grey #sunset-time,
-body.background-grey #sunset-description,
-body.background-grey #sunset-rating {
-    color: #000; /* Dark text for grey backgrounds */
+#footer-text {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    font-size: 12px;
+    color: #fff;
 }
 
-body.background-dark #location-name,
-body.background-dark #location-status,
-body.background-dark #sunset-time,
-body.background-dark #sunset-description,
-body.background-dark #sunset-rating {
-    color: #f0f0f0; /* Lighter text for dark backgrounds */
+.bg-1 {
+    background: linear-gradient(to bottom, #d3d3d3, #6a1b2a);
 }
 
-/* Center all the text vertically and horizontally */
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100%;
+.bg-2 {
+    background: linear-gradient(to bottom, #ff8c00, #ff6347);
 }
 
-/* Smooth text appearance */
-p {
-    transition: opacity 1s ease;
+.bg-3 {
+    background: linear-gradient(to bottom, #708090, #f0e68c);
+}
+
+.bg-4 {
+    background: linear-gradient(to bottom, #4682b4, #87ceeb);
+}
+
+.bg-5 {
+    background: linear-gradient(to bottom, #ff4500, #ffd700);
+}
+
+.bg-6 {
+    background: linear-gradient(to bottom, #a9a9a9, #d3d3d3);
+}
+
+.bg-7 {
+    background: linear-gradient(to bottom, #f5f5f5, #dcdcdc);
+}
+
+.bg-8 {
+    background: linear-gradient(to bottom, #ff1493, #ff69b4);
+}
+
+.bg-9 {
+    background: linear-gradient(to bottom, #2e8b57, #3cb371);
+}
+
+.bg-10 {
+    background: linear-gradient(to bottom, #ff6347, #ff4500);
 }
