@@ -1,116 +1,72 @@
-const apiKey = '49ab51a72b12ec9a691f33aad66addcf'; // Your OpenWeatherMap API key
+const apiKey = 'YOUR_API_KEY';
+const lat = 'YOUR_LATITUDE';
+const lon = 'YOUR_LONGITUDE';
+const oneCallUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}`;
 
-// Function to fetch weather data from OpenWeatherMap API using latitude and longitude
-async function fetchWeatherDataByLocation(lat, lon) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+async function fetchSunsetData() {
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.error('Error with API response:', response.status);
-            throw new Error('API response error');
-        }
+        const response = await fetch(oneCallUrl);
         const data = await response.json();
-        const cloudCover = data.clouds.all;
-        const weatherMain = data.weather[0].main; // To check for rain or fog
-        const sunsetUnix = data.sys.sunset;
-        const locationName = `${data.name}, ${data.sys.country}`; // Get location name and country
+
+        const locationName = 'Your Location'; // You can add a geocoding API to get the location name from lat/lon
+        const sunsetTime = new Date(data.current.sunset * 1000).toLocaleTimeString();
+        const cloudsLow = data.current.clouds_low;
+        const cloudsMid = data.current.clouds_mid;
+        const cloudsHigh = data.current.clouds_high;
+        const weatherMain = data.current.weather[0].main;
+
+        document.getElementById('location-name').textContent = `Location: ${locationName}`;
+        document.getElementById('location-status').textContent = `Fetching sunset data for ${locationName}`;
+        document.getElementById('sunset-time').textContent = `Sunset Time: ${sunsetTime}`;
         
-        return { cloudCover, weatherMain, sunsetUnix, locationName };
+        const rating = calculateSunsetRating(cloudsLow, cloudsMid, cloudsHigh, weatherMain);
+        const description = getDescription(rating);
+        
+        document.getElementById('sunset-description').textContent = `Description: ${description}`;
+        document.getElementById('sunset-rating').textContent = `Rating: ${rating}/10`;
+        document.getElementById('cloud-coverage').textContent = `Low Clouds: ${cloudsLow}% | Medium Clouds: ${cloudsMid}% | High Clouds: ${cloudsHigh}%`;
+
+        updateBackground(rating);
     } catch (error) {
-        console.error('Error fetching local weather data:', error);
-        throw error;
+        console.error('Error fetching sunset data:', error);
     }
 }
 
-// Function to calculate sunset rating based on cloud cover and weather conditions
-function calculateSunsetRating(cloudCover, weatherMain) {
-    let rating = 6; // Default rating for an average grey sunset
+function calculateSunsetRating(cloudsLow, cloudsMid, cloudsHigh, weatherMain) {
+    let rating = 6; // Default rating for an average sunset
 
     if (weatherMain === "Rain") {
-        rating = 1; // Raining conditions, very poor sunset
+        rating = 1; // Very poor sunset due to rain
     } else if (weatherMain === "Fog" || weatherMain === "Mist") {
-        rating = 3; // Foggy or misty conditions, low-quality sunset
-    } else if (cloudCover >= 50 && cloudCover <= 80) {
-        rating = 8; // Beautiful sunset with a good mix of clouds
-    } else if (cloudCover > 80) {
-        rating = 6; // Grey skies, average sunset
-    } else if (cloudCover <= 30) {
-        rating = 10; // Stunning sunset, clear sky
+        rating = 3; // Poor sunset due to fog
+    } else {
+        if (cloudsLow < 20 && cloudsHigh > 50) {
+            rating = 10; // Stunning sunset, high clouds and minimal low clouds
+        } else if (cloudsLow < 50 && cloudsMid > 40) {
+            rating = 8; // Beautiful sunset with a good mix of clouds
+        } else if (cloudsLow > 60) {
+            rating = 6; // Grey skies, average sunset
+        } else if (cloudsLow > 80) {
+            rating = 3; // Overcast sky, poor sunset
+        }
     }
 
     return rating;
 }
 
-// Function to change the background based on sunset rating
-function changeBackground(rating) {
-    const body = document.body;
-    
-    if (rating === 10) {
-        body.style.background = 'linear-gradient(to top, #ff416c, #ff4b2b, #ff7e5f)'; // Vibrant for 10/10
-    } else if (rating === 8) {
-        body.style.background = 'linear-gradient(to top, #ff7e5f, #feb47b, #ff9966)'; // Beautiful sunset for 8/10
-    } else if (rating === 6) {
-        body.style.background = 'linear-gradient(to top, #ddd, #bbb, #999)'; // Grey skies for 6/10
-    } else if (rating === 3) {
-        body.style.background = 'linear-gradient(to top, #999, #666, #444)'; // Foggy or misty for 3/10
-    } else if (rating === 1) {
-        body.style.background = 'linear-gradient(to top, #555, #333, #111)'; // Raining, very poor sunset for 1/10
+function getDescription(rating) {
+    switch (rating) {
+        case 10: return 'Stunning sunset with clear skies and vibrant colors.';
+        case 8: return 'Beautiful sunset with a good mix of clouds and colors.';
+        case 6: return 'Average sunset with grey skies.';
+        case 3: return 'Foggy or overcast with limited visibility.';
+        case 1: return 'Raining with poor visibility for sunset.';
+        default: return 'No data available.';
     }
 }
 
-// Function to update the UI with sunset prediction and location
-function updateUI(sunsetTime, description, rating, locationName) {
-    document.getElementById('sunset-time').innerText = `Sunset Time: ${sunsetTime}`;
-    document.getElementById('sunset-description').innerText = `Description: ${description}`;
-    document.getElementById('sunset-rating').innerText = `Rating: ${rating}/10`;
-    document.getElementById('location-name').innerText = `Location: ${locationName}`;
-    changeBackground(rating);
+function updateBackground(rating) {
+    document.body.className = `bg-${rating}`;
 }
 
-// Function to handle local sunset prediction
-function getSunsetPrediction() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-
-            try {
-                // Initial message: "Fetching location..." changes to "Fetching sunset data for [location]"
-                document.getElementById('location-status').innerText = 'Fetching local sunset data...';
-
-                const { cloudCover, weatherMain, sunsetUnix, locationName } = await fetchWeatherDataByLocation(lat, lon);
-                document.getElementById('location-status').innerText = `Fetching sunset data for ${locationName}...`;
-
-                const sunsetDate = new Date(sunsetUnix * 1000); // Convert from UNIX timestamp
-                const sunsetTime = sunsetDate.toLocaleTimeString();
-
-                const rating = calculateSunsetRating(cloudCover, weatherMain);
-
-                let description = 'Average sunset with normal colors.';
-                if (rating === 10) {
-                    description = 'Stunning and colorful sunset expected!';
-                } else if (rating === 8) {
-                    description = 'Beautiful sunset expected!';
-                } else if (rating === 6) {
-                    description = 'Average sunset with grey skies.';
-                } else if (rating === 3) {
-                    description = 'Foggy skies with poor sunset quality.';
-                } else if (rating === 1) {
-                    description = 'Raining, no sunset view.';
-                }
-
-                updateUI(sunsetTime, description, rating, locationName);
-            } catch (error) {
-                console.error('Error in getSunsetPrediction:', error);
-                document.getElementById('location-status').innerText = 'Unable to fetch sunset data.';
-            }
-        }, () => {
-            document.getElementById('location-status').innerText = 'Location access denied.';
-        });
-    } else {
-        document.getElementById('location-status').innerText = 'Geolocation is not supported by this browser.';
-    }
-}
-
-// Run the main function on page load for local sunset
-getSunsetPrediction();
+fetchSunsetData();
