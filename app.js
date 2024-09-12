@@ -1,4 +1,4 @@
-const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your OpenWeatherMap API key
+const apiKey = '49ab51a72b12ec9a691f33aad66addcf'; // Replace with your OpenWeatherMap API key
 
 // Function to fetch weather data from OpenWeatherMap API using latitude and longitude
 async function fetchWeatherDataByLocation(lat, lon) {
