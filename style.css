@@ -1,66 +1,27 @@
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    color: #fff;
+    color: #333;
     text-align: center;
+    margin: 0;
+    padding: 0;
+    transition: background 1s ease-in-out;
 }
 
-.container {
+#content {
     padding: 20px;
 }
 
-h1 {
-    margin-bottom: 20px;
-}
-
-#location-name, #location-status, #sunset-time, #sunset-description, #sunset-rating, #cloud-coverage {
-    margin: 10px 0;
-}
-
-#footer-text {
-    position: absolute;
+footer {
+    position: fixed;
     bottom: 10px;
     width: 100%;
-    font-size: 12px;
-    color: #fff;
+    text-align: center;
+    font-size: 0.8em;
+    color: #666;
 }
 
-.bg-1 {
-    background: linear-gradient(to bottom, #d3d3d3, #6a1b2a);
-}
-
-.bg-2 {
-    background: linear-gradient(to bottom, #ff8c00, #ff6347);
-}
-
-.bg-3 {
-    background: linear-gradient(to bottom, #708090, #f0e68c);
-}
-
-.bg-4 {
-    background: linear-gradient(to bottom, #4682b4, #87ceeb);
-}
-
-.bg-5 {
-    background: linear-gradient(to bottom, #ff4500, #ffd700);
-}
-
-.bg-6 {
-    background: linear-gradient(to bottom, #a9a9a9, #d3d3d3);
-}
-
-.bg-7 {
-    background: linear-gradient(to bottom, #f5f5f5, #dcdcdc);
-}
-
-.bg-8 {
-    background: linear-gradient(to bottom, #ff1493, #ff69b4);
-}
-
-.bg-9 {
-    background: linear-gradient(to bottom, #2e8b57, #3cb371);
-}
-
-.bg-10 {
-    background: linear-gradient(to bottom, #ff6347, #ff4500);
-}
+.bg-1 { background: linear-gradient(to top, #000000, #434343); } /* Rainy */
+.bg-3 { background: linear-gradient(to top, #bdc3c7, #2c3e50); } /* Foggy */
+.bg-6 { background: linear-gradient(to top, #7f8c8d, #bdc3c7); } /* Average */
+.bg-8 { background: linear-gradient(to top, #ff9966, #ff5e62); } /* Beautiful */
+.bg-10 { background: linear-gradient(to top, #ff5f6d, #ffc371); } /* Stunning */
